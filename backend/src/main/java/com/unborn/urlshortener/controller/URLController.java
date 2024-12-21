@@ -1,16 +1,21 @@
 package com.unborn.urlshortener.controller;
 
-import org.springframework.http.HttpStatus;
+import com.unborn.urlshortener.dto.ShortURLRequest;
+import com.unborn.urlshortener.service.URLService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class URLController {
 
-    @GetMapping("/sayHello")
-    public ResponseEntity<String> sayHello() {
-        String name = "Subbu";
-        return new ResponseEntity<>("Hello " + name, HttpStatus.OK);
+    @Autowired
+    URLService urlService;
+
+    @PostMapping("/shortenURl")
+    public ResponseEntity<String> shortenURL(@RequestBody ShortURLRequest shortURLRequest) {
+        return urlService.shortenURL(shortURLRequest.getURL());
     }
 }
