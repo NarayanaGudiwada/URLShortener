@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class URLController {
 
-//    @RequestMapping(value = "sayHello", method = RequestMethod.GET)
     @GetMapping("/sayHello")
     public ResponseEntity<String> sayHello() {
         String name = "Subbu";
