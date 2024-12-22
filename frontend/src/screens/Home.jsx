@@ -18,6 +18,7 @@ const Home = () => {
       console.log(error);
     }
     link.current.value = "";
+    titleRef.current.value = "";
   };
 
   const handleCopy = () => {
