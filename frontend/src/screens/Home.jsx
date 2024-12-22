@@ -5,13 +5,14 @@ import axios from "axios";
 
 const Home = () => {
   const link = useRef();
+  const titleRef = useRef();
   const [shortLink, setLink] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = link.current.value;
     if (!url) return;
     try {
-      const response = await axios.post(SERVICE_API + "shorten", { url });
+      const response = await axios.post(SERVICE_API + "generate", { "longUrl" :url, "title": titleRef.current.value });
       setLink(response.data);
     } catch (error) {
       console.log(error);
@@ -32,11 +33,19 @@ const Home = () => {
             Enter <span className="text-orange-950">URL</span> to shorten
           </h1>
           <form onSubmit={handleSubmit}>
+          <input
+              type="text"
+              ref={titleRef}
+              className="w-72 h-10 rounded-lg p-2 mt-4 focus:border border-orange-400 focus:outline-none"
+              placeholder="Enter Title"
+              required
+            />
             <input
               type="text"
               ref={link}
               className="w-72 h-10 rounded-lg p-2 mt-4 focus:border border-orange-400 focus:outline-none"
               placeholder="Enter URL"
+              required
             />
             <button
               type="submit"
