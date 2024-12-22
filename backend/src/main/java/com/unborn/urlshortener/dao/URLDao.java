@@ -18,6 +18,10 @@ public interface URLDao {
     @Query("UPDATE URLEntity url SET url.noOfClicks = url.noOfClicks + 1 WHERE url.id = :id")
     public void incrementClickCount(Long id);
 
+    @Modifying
+    @Query("UPDATE URLEntity url SET url.noOfUniqueClients = url.noOfUniqueClients + 1 WHERE url.id = :id")
+    public void incrementUniqueClients(Long id);
+
     public URLEntity findById(Long id);
     public List<URLEntity> findAll();
 }

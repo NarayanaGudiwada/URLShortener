@@ -3,10 +3,7 @@ package com.unborn.urlshortener.controller;
 import com.unborn.urlshortener.dto.URLBean;
 import com.unborn.urlshortener.service.URLService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -38,11 +35,25 @@ public class URLController {
             value = "{shortUrl}",
             method = RequestMethod.GET
     )
-    public ResponseEntity<Object> redirectToLongUrl(@PathVariable String shortUrl) throws URISyntaxException {
-        URLBean longUrlBean = urlService.getLongUrl(shortUrl);
+    public ResponseEntity<Object> redirectToLongUrl(@PathVariable String shortUrl, @CookieValue(name = "visited-urls", defaultValue = "") String visitedUrls ) throws URISyntaxException {
+        // Check if the short URL is already in the visited URLs
+        //TODO: modify this logic later as it will cookie value (cookie max size)
+        // may be create user-id and maintain visited URLs in DB
+        boolean alreadyVisited = visitedUrls.contains(shortUrl);
+        System.out.println("Visited URLs: " + visitedUrls);
+        URLBean longUrlBean = urlService.getLongUrl(shortUrl, alreadyVisited);
         URI longUrl = new URI(longUrlBean.getLongUrl());
 
+        String updatedVisitedUrls = alreadyVisited ? visitedUrls : visitedUrls + (visitedUrls.isEmpty() ? "" : "|") + shortUrl;
+        ResponseCookie springCookie = ResponseCookie.from("visited-urls", updatedVisitedUrls) //have to replace with  some meaningful Id
+                .httpOnly(true)
+                .path("/")
+                .build();
+
+
+
         HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Set-Cookie", springCookie.toString());
         httpHeaders.setLocation(longUrl);
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
     }

@@ -22,12 +22,12 @@ const Home = () => {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(SERVICE_URL + shortLink);
+    navigator.clipboard.writeText(shortLink);
     alert("URL copied to clipboard!");
   };
 
   return (
-    <div className="flex flex-grow justify-center items-center bg-orange-50 h-dvh">
+    <div className="flex-1 flex flex-grow justify-center items-center bg-orange-50 h-full ">
       <Card>
         <div className="flex flex-col items-center">
           <h1 className="text-xl font-bold text-orange-400">
@@ -37,7 +37,7 @@ const Home = () => {
           <input
               type="text"
               ref={titleRef}
-              className="w-72 h-10 rounded-lg p-2 mt-4 focus:border border-orange-400 focus:outline-none"
+              className="w-72  rounded-lg p-2 mt-4 focus:border border-orange-400 focus:outline-none"
               placeholder="Enter Title"
               required
             />
@@ -50,7 +50,7 @@ const Home = () => {
             />
             <button
               type="submit"
-              className="w-72 h-10 bg-orange-400 text-white rounded-lg mt-4"
+              className="w-72 h-10 bg-orange-400 text-white rounded-lg mt-4  hover:bg-orange-600 tarnsition-all hover:px-2 hover:py-2 duration-500 " 
             >
               Shorten URL
             </button>

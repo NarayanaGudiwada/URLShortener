@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="bg-orange-100 h-16 w-full">
+    <div className="bg-orange-200 h-16 w-full">
       <div className="text-2xl font-bold text-orange-950 p-4">
         <Link to={"/"}>
           Unborn

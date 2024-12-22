@@ -18,8 +18,8 @@ public class URLServiceImpl implements URLService {
     }
 
     @Override
-    public URLBean getLongUrl(String shortUrl) {
-        return urlDaoWrapper.getLongUrl(shortUrl);
+    public URLBean getLongUrl(String shortUrl, boolean alreadyVisited) {
+        return urlDaoWrapper.getLongUrl(shortUrl, alreadyVisited);
     }
 
     @Override

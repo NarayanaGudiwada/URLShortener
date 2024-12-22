@@ -29,9 +29,12 @@ public class URLDaoWrapper {
         URLEntity shortUrlEntity = urlDao.save(longUrlEntity);
         return BEConverter.convertEntityToBean(shortUrlEntity);
     }
-    public URLBean getLongUrl(String shortUrl) {
+    public URLBean getLongUrl(String shortUrl, boolean alreadyVisited) {
         Long urlId = URLShortener.convertShortUrlToId(shortUrl);
         urlDao.incrementClickCount(urlId);
+        if(!alreadyVisited) {
+            urlDao.incrementUniqueClients(urlId);
+        }
         URLEntity longUrlEntity = urlDao.findById(urlId);
         return BEConverter.convertEntityToBean(longUrlEntity);
     }

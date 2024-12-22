@@ -7,6 +7,6 @@ import java.util.List;
 public interface URLService {
 
     public URLBean getShortUrl(URLBean longUrlBean);
-    public URLBean getLongUrl(String shortUrl);
+    public URLBean getLongUrl(String shortUrl, boolean alreadyVisited);
     public List<URLBean> getAllUrls();
 }
