@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { SERVICE_API, SERVICE_URL } from "../../config/apiConfig";
+import { SERVICE_URL } from "../../config/apiConfig";
 import Card from "../components/Card";
 import axios from "axios";
 
@@ -12,7 +12,7 @@ const Home = () => {
     const url = link.current.value;
     if (!url) return;
     try {
-      const response = await axios.post(SERVICE_API + "generate", { "longUrl" :url, "title": titleRef.current.value });
+      const response = await axios.post(SERVICE_URL + "generate", { "longUrl" :url, "title": titleRef.current.value });
       setLink(response.data);
     } catch (error) {
       console.log(error);
