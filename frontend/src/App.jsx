@@ -1,5 +1,17 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Layout from "./screens/Layout";
+import Home from "./screens/Home";
+
 function App() {
-  return <div className="bg-slate-300 h-screen flex justify-center items-center text-orange-950">Url Shortener</div>;
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;

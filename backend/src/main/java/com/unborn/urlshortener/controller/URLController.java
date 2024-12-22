@@ -14,7 +14,7 @@ public class URLController {
     @Autowired
     URLService urlService;
 
-    @PostMapping("/shortenURl")
+    @PostMapping("/shortenURL")
     public ResponseEntity<String> shortenURL(@RequestBody ShortURLRequest shortURLRequest) {
         return urlService.shortenURL(shortURLRequest.getURL());
     }
