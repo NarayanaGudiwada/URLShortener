@@ -13,7 +13,7 @@ const Home = () => {
     if (!url) return;
     try {
       const response = await axios.post(SERVICE_URL + "generate", { "longUrl" :url, "title": titleRef.current.value });
-      setLink(response.data);
+      setLink(response.data.shortUrl);
     } catch (error) {
       console.log(error);
     }
