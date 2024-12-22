@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="bg-orange-100 h-16 w-full">
-      <div className="text-2xl font-bold text-orange-950 p-4">
+    <div className="bg-sky-50 h-16">
+      <div className="text-2xl font-bold text-sky-950 p-4 bg-sky-100 fixed w-full">
         <Link to={"/"}>
           Unborn
-          <span className="text-white">.ly</span>
+          <span className="text-sky-200">.ly</span>
         </Link>
       </div>
     </div>
