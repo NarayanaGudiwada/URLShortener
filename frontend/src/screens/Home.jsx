@@ -17,7 +17,7 @@ const Home = () => {
           <h1 className="text-xl font-bold text-orange-400 ">
             Enter <span className="text-orange-950">URL</span> to shorten
           </h1>
-          <form action={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
               className="w-72 h-10 rounded-lg p-2 mt-4 flex justify-center focus:border-orange-400"
