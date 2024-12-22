@@ -58,11 +58,11 @@ const Home = () => {
           {shortLink && (
             <div className="mt-4 flex items-center">
               <a
-                href={SERVICE_URL + shortLink}
+                href={shortLink}
                 target="_blank"
                 className="mr-2"
               >
-                {SERVICE_URL + shortLink}
+                {shortLink}
               </a>
               <button
                 onClick={handleCopy}
