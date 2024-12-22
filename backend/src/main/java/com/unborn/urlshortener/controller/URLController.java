@@ -1,21 +1,59 @@
 package com.unborn.urlshortener.controller;
 
-import com.unborn.urlshortener.dto.ShortURLRequest;
+import com.unborn.urlshortener.dto.URLBean;
 import com.unborn.urlshortener.service.URLService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@CrossOrigin
-@RequestMapping("/api/v1")
 public class URLController {
-
     @Autowired
-    URLService urlService;
+    private URLService urlService;
 
-    @PostMapping("/shorten")
-    public ResponseEntity<String> shortenURL(@RequestBody ShortURLRequest shortURLRequest) {
-        return urlService.shortenURL(shortURLRequest.getURL());
+    @RequestMapping(
+            value = "generate",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<URLBean> getShortUrl(@RequestBody URLBean longUrlBean) {
+        URLBean shortUrlBean = urlService.getShortUrl(longUrlBean);
+        String shortUrl = "http://localhost:8080/" + shortUrlBean.getShortUrl();
+
+        URLBean responseUrlBean = new URLBean();
+        responseUrlBean.setShortUrl(shortUrl);
+        return new ResponseEntity<>(responseUrlBean, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "{shortUrl}",
+            method = RequestMethod.GET
+    )
+    public ResponseEntity<Object> redirectToLongUrl(@PathVariable String shortUrl) throws URISyntaxException {
+        URLBean longUrlBean = urlService.getLongUrl(shortUrl);
+        URI longUrl = new URI(longUrlBean.getLongUrl());
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(longUrl);
+        return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
+    }
+
+    @RequestMapping(
+            value = "getall",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<URLBean>> getAllUrls() {
+        List<URLBean> urlBeanList = urlService.getAllUrls();
+        return new ResponseEntity<>(urlBeanList, HttpStatus.OK);
     }
 }
