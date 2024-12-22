@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShortURLRequest {
-    private String ShortURL;
+    private String url;
 
     public String getURL() {
-        return ShortURL;
+        return url;
     }
 }
