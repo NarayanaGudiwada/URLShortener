@@ -15,7 +15,7 @@ const Home = () => {
       <Card>
         <div className="flex flex-col items-center">
           <h1 className="text-xl font-bold text-orange-400 ">
-            Enter <span className="text-orange-950">URL</span> to shorten
+            Enter <span className="text-orange-950">URL</span> to continue
           </h1>
           <form action={handleSubmit}>
             <input
