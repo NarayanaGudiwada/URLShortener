@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { SERVICE_URL } from "../../config/apiConfig";
 import Card from "../components/Card";
 import axios from "axios";
+import { Input } from "../components/Input";
 
 const Home = () => {
   const link = useRef();
@@ -12,7 +13,10 @@ const Home = () => {
     const url = link.current.value;
     if (!url) return;
     try {
-      const response = await axios.post(SERVICE_URL + "generate", { "longUrl" :url, "title": titleRef.current.value });
+      const response = await axios.post(SERVICE_URL + "generate", {
+        longUrl: url,
+        title: titleRef.current.value,
+      });
       setLink(response.data.shortUrl);
     } catch (error) {
       console.log(error);
@@ -33,24 +37,12 @@ const Home = () => {
           <h1 className="text-xl font-bold text-orange-400">
             Enter <span className="text-orange-950">URL</span> to shorten
           </h1>
-          <form onSubmit={handleSubmit}>
-          <input
-              type="text"
-              ref={titleRef}
-              className="w-72  rounded-lg p-2 mt-4 focus:border border-orange-400 focus:outline-none"
-              placeholder="Enter Title"
-              required
-            />
-            <input
-              type="text"
-              ref={link}
-              className="w-72 h-10 rounded-lg p-2 mt-4 focus:border border-orange-400 focus:outline-none"
-              placeholder="Enter URL"
-              required
-            />
+          <form onSubmit={handleSubmit} className="flex flex-col items-center">
+            <Input inputref={titleRef} placeholder={"Enter Title"} />
+            <Input inputref={link} placeholder={"Enter URL"} required={true} />
             <button
               type="submit"
-              className="w-72 h-10 bg-orange-400 text-white rounded-lg mt-4  hover:bg-orange-600 tarnsition-all hover:px-2 hover:py-2 duration-500 " 
+              className="w-72 h-10 bg-orange-400 text-white rounded-lg mt-4  hover:bg-orange-600 tarnsition-all hover:px-2 hover:py-2 duration-500 "
             >
               Shorten URL
             </button>
@@ -58,11 +50,7 @@ const Home = () => {
 
           {shortLink && (
             <div className="mt-4 flex items-center">
-              <a
-                href={shortLink}
-                target="_blank"
-                className="mr-2"
-              >
+              <a href={shortLink} target="_blank" className="mr-2">
                 {shortLink}
               </a>
               <button
